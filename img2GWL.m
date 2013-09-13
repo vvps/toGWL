@@ -2,6 +2,8 @@
 %%%                                             %%%
 %%% Author: Vijay Parsi - Date: 04.07.2013      %%%
 %%% email: vijayparsi@gmail.com                 %%%
+%%%                                             %%%
+%%% V 1.1: 12.09.2013                           %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%                                             %%%
@@ -19,7 +21,7 @@
 %%%                                             %%%
 %%% Set the imageName to the input image path.  %%%
 %%%                                             %%%
-%%% Choose the output GWL file dimensions (µm)  %%%
+%%% Choose the output GWL file dimensions (Âµm)  %%%
 %%%                                             %%%
 %%% Select a suitable black and white level     %%%
 %%% bwLevel: 0.6-0.7 is close to optimal.       %%%
@@ -39,11 +41,11 @@ clc;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% INPUT VALUES - TO BE SET BY THE USER %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-GWLmode = true; %Set this to true to generate GWL
-imageName='testImg/stripes.jpg'; %Change this to the imagepath
-xSize = 300; %Change this to the desired x length in µm
-ySize = 300; %Change this to the desired y length in µm
-zPos = 0.1; %Change this to set your voxel position (Default: 0.1)
+GWLmode = true; %Set this to true to generate GWL or false to preview
+imageName='testImg/logoCGH.png'; %Change this to the imagepath
+xSize = 20; %Change this to the desired x length in Âµm
+ySize = 20; %Change this to the desired y length in Âµm
+zPos = 0.0; %Change this to set your voxel position (Default: 0.0)
 bwLevel = 0.7; %Change this to select bw level. 0 is black, 1 is white.
 gwlFile = 'theGWLcode.gwl'; %Change this to the desired outputname + .gwl
 
@@ -51,7 +53,7 @@ gwlFile = 'theGWLcode.gwl'; %Change this to the desired outputname + .gwl
 %%%        ADDITIONAL INPUT VALUES       %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 bwImgInvert = false; %Set this to true to invert your image
-verticalSlicing = false; %Set this to false to slice horizontally
+verticalSlicing = true; %Set this to false to slice horizontally
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -142,6 +144,7 @@ if (GWLmode)
                 lastPoint = gwlRow; %To take care of single points
                 
                 if(j == yImgSize) %End of row
+                    dlmwrite(gwlFile, Write, '-append','delimiter', '');
                     startFlag = false;
                 end
             
@@ -191,6 +194,7 @@ if (GWLmode)
                 lastPoint = gwlRow; %To take care of single points
                 
                 if(j == xImgSize) %End of row
+                    dlmwrite(gwlFile, Write, '-append','delimiter', '');
                     startFlag = false;
                 end
             
